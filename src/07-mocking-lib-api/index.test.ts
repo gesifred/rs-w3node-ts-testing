@@ -1,6 +1,6 @@
 // Uncomment the code below and write your tests
 import axios from 'axios';
-import { throttledGetDataFromApi, /*THROTTLE_TIME*/ } from './index';
+import { throttledGetDataFromApi /*THROTTLE_TIME*/ } from './index';
 //import _ from 'lodash';
 describe('throttledGetDataFromApi', () => {
   beforeAll(() => {
@@ -11,9 +11,9 @@ describe('throttledGetDataFromApi', () => {
     jest.useRealTimers();
   });
   test('should create instance with provided base url', async () => {
-    const base= 'https://jsonplaceholder.typicode.com';
+    const base = 'https://jsonplaceholder.typicode.com';
     const axiosInstance = jest.spyOn(axios, 'create');
-    jest.spyOn(axios,'get').mockResolvedValue({data:"apiData"});
+    jest.spyOn(axios, 'get').mockResolvedValue({ data: 'apiData' });
     await throttledGetDataFromApi('/');
     jest.advanceTimersByTime(3000);
     expect(axiosInstance).toBeCalled();
@@ -24,7 +24,9 @@ describe('throttledGetDataFromApi', () => {
 
   test('should perform request to correct provided url', async () => {
     const axiosInstance = jest.spyOn(axios, 'create');
-    const axiosGet = jest.spyOn(axios.Axios.prototype,'get').mockImplementation(() => Promise.resolve({data:"apiData"}));//.mockResolvedValue({data:"apiData"});
+    const axiosGet = jest
+      .spyOn(axios.Axios.prototype, 'get')
+      .mockImplementation(() => Promise.resolve({ data: 'apiData' })); //.mockResolvedValue({data:"apiData"});
     //axios.get = jest.fn().mockResolvedValue('api');
     await throttledGetDataFromApi('api');
     jest.runAllTimers();

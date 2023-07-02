@@ -15,7 +15,9 @@ describe('doStuffByTimeout', () => {
 
   test('should set timeout with provided callback and timeout', () => {
     jest.spyOn(global, 'setTimeout');
-    const myCallBack: () => void = () => { /*do nothing*/ };
+    const myCallBack: () => void = () => {
+      /*do nothing*/
+    };
     doStuffByTimeout(myCallBack, 1000);
     expect(setTimeout).toHaveBeenCalledTimes(1);
     expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 1000);
@@ -42,7 +44,9 @@ describe('doStuffByInterval', () => {
 
   test('should set interval with provided callback and timeout', () => {
     jest.spyOn(global, 'setInterval');
-    const myCallBack: () => void = () => { /*do nothing*/ };
+    const myCallBack: () => void = () => {
+      /*do nothing*/
+    };
     doStuffByInterval(myCallBack, 1000);
     expect(setInterval).toHaveBeenCalledTimes(1);
     expect(setInterval).toHaveBeenLastCalledWith(expect.any(Function), 1000);
@@ -71,16 +75,19 @@ describe('readFileAsynchronously', () => {
     const fileName = 'test-non-existent-file.txt';
     await readFileAsynchronously(fileName);
     expect(existsSync).toHaveBeenCalledTimes(1);
-    expect(existsSync).toHaveBeenCalledWith(path.join(__dirname, fileName));  });
+    expect(existsSync).toHaveBeenCalledWith(path.join(__dirname, fileName));
+  });
 
   test('should return file content if file exists', async () => {
     // Write your test here
-    const fileName = "somePath.txt"
+    const fileName = 'somePath.txt';
     const mockedFileContent = 'this is my content';
     const existsSync = jest.spyOn(fs, 'existsSync');
     const readfile = jest.spyOn(fsPromises, 'readFile');
     readfile.mockReturnValue(Promise.resolve(mockedFileContent));
     existsSync.mockReturnValue(true);
-    await expect(readFileAsynchronously(fileName)).resolves.toBe(mockedFileContent);
+    await expect(readFileAsynchronously(fileName)).resolves.toBe(
+      mockedFileContent,
+    );
   });
 });
